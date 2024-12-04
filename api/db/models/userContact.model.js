@@ -1,21 +1,25 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const USER_TABLE = 'users';
+const CONTACT_TABLE = 'contact';
 
-const UserSchema = {
+const ContactSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  email: {
+  name: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  password: {
+  email: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+  },
+  description: {
+    allowNull: false,
+    type: DataTypes.STRING,
   },
   createdAt: {
     allowNull: false,
@@ -24,13 +28,17 @@ const UserSchema = {
     defaultValue: Sequelize.NOW
   },
   state: {
-    allowNull: true,
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
+    allowNull: false,
+    type: DataTypes.BOOLEAN
   },
+  userId: {
+    field: 'user_id',
+    allowNull: true,
+    type: DataTypes.INTEGER
+  }
 }
 
-class User extends Model {
+class Contact extends Model {
   static associate() {
     //associate
   }
@@ -38,12 +46,12 @@ class User extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: USER_TABLE,
-      modelName: 'User',
+      tableName: CONTACT_TABLE,
+      modelName: 'Contact',
       timestamps: false
     }
   }
 }
 
 
-module.exports = { USER_TABLE, UserSchema, User }
+module.exports = { CONTACT_TABLE, ContactSchema, Contact }

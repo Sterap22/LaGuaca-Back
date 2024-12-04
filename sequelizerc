@@ -1,6 +1,5 @@
 const path = require('path');
 
-console.log("Using custom config paths");
 
 module.exports = {
   'config': path.resolve('api/db/config.js'),

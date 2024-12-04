@@ -1,21 +1,21 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const USER_TABLE = 'users';
+const TEMPLATE_TABLE = 'template';
 
-const UserSchema = {
+const TemplateSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  email: {
+  name: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  password: {
+  description: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.TEXT
   },
   createdAt: {
     allowNull: false,
@@ -27,23 +27,23 @@ const UserSchema = {
     allowNull: true,
     type: DataTypes.BOOLEAN,
     defaultValue: true
-  },
+  }
 }
 
-class User extends Model {
+class Template extends Model {
   static associate() {
-    //associate
+    // associate
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: USER_TABLE,
-      modelName: 'User',
+      tableName: TEMPLATE_TABLE,
+      modelName: 'Template',
       timestamps: false
     }
   }
 }
 
 
-module.exports = { USER_TABLE, UserSchema, User }
+module.exports = { TEMPLATE_TABLE, TemplateSchema, Template }

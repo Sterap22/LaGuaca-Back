@@ -1,4 +1,5 @@
 {
+  "installCommand": "yarn add mysql2 nodemailer bcrypt jsonwebtoken passport passport-jwt passport-local",
   "rewrites": [
     {
       "source": "/api/(.*)",
