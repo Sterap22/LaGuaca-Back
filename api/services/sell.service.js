@@ -1,12 +1,16 @@
 const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
 
+const DetailService = require('../services/detailSell.service');
+const service = new DetailService();
+
 class SellService {
 
     constructor() { }
 
     async create(data) {
         const newSell = (data.id !== 0 && !!data.id) ? await this.update(data.id, data) :await models.Sell.create(data);
+        const InsertDetail = await service.create(newSell);
         return newSell;
     }
 
