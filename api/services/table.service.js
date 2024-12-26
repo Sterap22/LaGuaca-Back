@@ -1,4 +1,5 @@
 const { models } =  require('../libs/sequelize');
+const sequelize = require('../libs/sequelize');
 
 class TableService {
 
@@ -15,7 +16,18 @@ class TableService {
                 state: true
             }
           });
-        return Table;
+
+        const TableAll = await sequelize.query(
+            `SELECT T.create_at, T.id, T.name, T.state,
+			              S.quantity ,S.product
+                      FROM sell AS S
+                      INNER JOIN sellType AS T ON S.idTable = T.id
+                      WHERE T.state = 1`,
+            {
+              type: sequelize.QueryTypes.SELECT,
+            }
+          );
+        return TableAll;
       }
 
       async findOne(id) {

@@ -9,8 +9,10 @@ class SellService {
     constructor() { }
 
     async create(data) {
-        const newSell = (data.id !== 0 && !!data.id) ? await this.update(data.id, data) :await models.Sell.create(data);
-        const InsertDetail = await service.create(newSell);
+        const newSell = await (data.id !== 0 && !!data.id) ?  this.update(data.id, data) : models.Sell.create(data);
+        newSell.then((succ)=>{
+                service.create(succ.dataValues);
+        })
         return newSell;
     }
 

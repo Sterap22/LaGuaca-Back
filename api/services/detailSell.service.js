@@ -13,7 +13,7 @@ class DetailService {
 
         //analizamos la data para su insercion
         this.analyctData(data.id, data.product, Detail);
-        
+
         return data
     }
 
@@ -43,12 +43,15 @@ class DetailService {
             if (oldData.length === 0) {
                 await models.DetailSell.create(request);
             } else {
-                // Verifica si ya existe el dato en oldData
+                // Verifica si ya existe el dato
                 const alreadyExists = await sequelize.query(
-                    `SELECT * FROM detailSell WHERE create_at = STR_TO_DATE(:addedAt, '%Y-%m-%dT%H:%i:%s'); `,
+                    `SELECT * FROM detailSell WHERE create_at = STR_TO_DATE(:addedAt, '%Y-%m-%dT%H:%i:%s') 
+                        and sellId = :sellId and productId = :productId;`,
                     {
                       replacements: {
-                        addedAt: request.createdAt
+                        addedAt: request.createdAt,
+                        sellId: request.sellId,
+                        productId: request.productId
                       },
                       type: sequelize.QueryTypes.SELECT,
                     }
